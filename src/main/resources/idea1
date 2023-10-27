@@ -1,0 +1,24 @@
+Map<String, String> ExtraFoodShop = new HashMap<>();
+ExtraFoodShop.put("Soysauce", "10.00/EUR per unit");
+ExtraFoodShop.put("Sake","80.00/EUR per unit");
+ExtraFoodShop.put("Oyster sauce","20.00/EUR per unit");
+
+ISupplierCreationTemplate supplierExtraFoodShop = new SupplierCreationTemplate();
+Map <String, Map<String, String>> addExtraFoodShop = supplierExtraFoodShop.availableProducts("ExtraFoodShop",ExtraFoodShop);
+
+
+//Start program
+System.out.println("Chose your shop you want to order from:");
+System.out.println("1.: " + addExtraFoodShop.entrySet().stream().map(k -> k.getKey()).toList() + "\n" +
+                addExtraFoodShop.entrySet().stream().map(v ->v.getValue())
+                .collect(Collectors.toList()));
+
+
+List<String> printDoubleValue =  addExtraFoodShop.entrySet().stream().map(v -> v.getValue())
+        .map(v ->v.get("Soysauce"))
+                .collect(Collectors.toList());
+
+String removeStringToCreateDouble = printDoubleValue.get(0).replace("/EUR per unit","");
+Double doubleNumber = Double.parseDouble(removeStringToCreateDouble);
+
+System.out.println(doubleNumber);
